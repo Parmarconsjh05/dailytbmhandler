@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parmar Construction - PPE & Attendance Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { text-align: center; }
+        form { max-width: 600px; margin: auto; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        .attendance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    </style>
+</head>
+<body>
+
+<h1>Parmar Construction - PPE & Attendance Form</h1>
+<p style="text-align:center;">Vendor Code: P299 | TATA Steel Jamshedpur</p>
+
+<form method="POST" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" enctype="multipart/form-data">
+
+    <label>Select Date:</label>
+    <input type="date" name="date" required>
+
+    <label>Select site:</label>
+    <select name="site" required>
+        <option value="R&D">R&D</option>
+        <option value="SCS">SCS</option>
+        <option value="NBM">NBM</option>
+        <option value="WRM">WRM</option>
+    </select>
+
+    <label>Mark Attendance:</label>
+    <div class="attendance-grid">
+        <label><input type="checkbox" name="attendance" value="Arjun Gope"> Arjun Gope</label>
+        <label><input type="checkbox" name="attendance" value="Devendra Kumar Singh"> Devendra Kumar Singh</label>
+
+        <label><input type="checkbox" name="attendance" value="Ekadashi Sen"> Ekadashi Sen</label>
+        <label><input type="checkbox" name="attendance" value="Jadu Mandal"> Jadu Mandal</label>
+
+        <label><input type="checkbox" name="attendance" value="Lallu Kumar"> Lallu Kumar</label>
+        <label><input type="checkbox" name="attendance" value="Laxmikant Choudhary"> Laxmikant Choudhary</label>
+
+        <label><input type="checkbox" name="attendance" value="Niranjan Gope"> Niranjan Gope</label>
+        <label><input type="checkbox" name="attendance" value="Rahit Ghatoury"> Rahit Ghatoury</label>
+
+        <label><input type="checkbox" name="attendance" value="Rajendar Kumar Rajak"> Rajendar Kumar Rajak</label>
+        <label><input type="checkbox" name="attendance" value="Rajesh Kumar Manik"> Rajesh Kumar Manik</label>
+
+        <label><input type="checkbox" name="attendance" value="Sunil Mishra"> Sunil Mishra</label>
+    </div>
+
+    <label>Toolbox Meeting (PDF/JPEG):</label>
+    <input type="file" name="toolboxFile">
+
+    <label>Work Permit (PDF/JPEG):</label>
+    <input type="file" name="workPermitFile">
+
+    <br><br>
+    <button type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>
