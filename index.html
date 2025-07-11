@@ -2,63 +2,120 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parmar Construction - PPE & Attendance Form</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { text-align: center; }
-        form { max-width: 600px; margin: auto; }
-        label { display: block; margin-top: 10px; font-weight: bold; }
-        .attendance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        header {
+            background-color: #007acc;
+            padding: 20px;
+            text-align: center;
+        }
+        header img {
+            height: 50px;
+        }
+        header h1 {
+            color: white;
+            margin: 10px 0 0 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #005f99;
+        }
+        .attendance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .attendance-grid label {
+            font-weight: normal;
+        }
     </style>
 </head>
 <body>
 
-<h1>Parmar Construction - PPE & Attendance Form</h1>
-<p style="text-align:center;">Vendor Code: P299 | TATA Steel Jamshedpur</p>
+<header>
+    <img src="parmarlogo.png" alt="Company Logo">
+    <h1>Parmar Construction - PPE & Attendance Form</h1>
+    <p style="color:white;">Vendor Code: P299 | TATA Steel Jamshedpur</p>
+</header>
 
-<form method="POST" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" enctype="multipart/form-data">
+<div class="container">
+    <form method="POST" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" enctype="multipart/form-data">
 
-    <label>Select Date:</label>
-    <input type="date" name="date" required>
+        <label>Select Date:</label>
+        <input type="date" name="date" required>
 
-    <label>Select site:</label>
-    <select name="site" required>
-        <option value="R&D">R&D</option>
-        <option value="SCS">SCS</option>
-        <option value="NBM">NBM</option>
-        <option value="WRM">WRM</option>
-    </select>
+        <label>Select site:</label>
+        <select name="site" required>
+            <option value="R&D">R&D</option>
+            <option value="SCS">SCS</option>
+            <option value="NBM">NBM</option>
+            <option value="WRM">WRM</option>
+        </select>
 
-    <label>Mark Attendance:</label>
-    <div class="attendance-grid">
-        <label><input type="checkbox" name="attendance" value="Arjun Gope"> Arjun Gope</label>
-        <label><input type="checkbox" name="attendance" value="Devendra Kumar Singh"> Devendra Kumar Singh</label>
+        <label>Mark Attendance:</label>
+        <div class="attendance-grid">
+            <label><input type="checkbox" name="attendance" value="Arjun Gope"> Arjun Gope</label>
+            <label><input type="checkbox" name="attendance" value="Devendra Kumar Singh"> Devendra Kumar Singh</label>
 
-        <label><input type="checkbox" name="attendance" value="Ekadashi Sen"> Ekadashi Sen</label>
-        <label><input type="checkbox" name="attendance" value="Jadu Mandal"> Jadu Mandal</label>
+            <label><input type="checkbox" name="attendance" value="Ekadashi Sen"> Ekadashi Sen</label>
+            <label><input type="checkbox" name="attendance" value="Jadu Mandal"> Jadu Mandal</label>
 
-        <label><input type="checkbox" name="attendance" value="Lallu Kumar"> Lallu Kumar</label>
-        <label><input type="checkbox" name="attendance" value="Laxmikant Choudhary"> Laxmikant Choudhary</label>
+            <label><input type="checkbox" name="attendance" value="Lallu Kumar"> Lallu Kumar</label>
+            <label><input type="checkbox" name="attendance" value="Laxmikant Choudhary"> Laxmikant Choudhary</label>
 
-        <label><input type="checkbox" name="attendance" value="Niranjan Gope"> Niranjan Gope</label>
-        <label><input type="checkbox" name="attendance" value="Rahit Ghatoury"> Rahit Ghatoury</label>
+            <label><input type="checkbox" name="attendance" value="Niranjan Gope"> Niranjan Gope</label>
+            <label><input type="checkbox" name="attendance" value="Rahit Ghatoury"> Rahit Ghatoury</label>
 
-        <label><input type="checkbox" name="attendance" value="Rajendar Kumar Rajak"> Rajendar Kumar Rajak</label>
-        <label><input type="checkbox" name="attendance" value="Rajesh Kumar Manik"> Rajesh Kumar Manik</label>
+            <label><input type="checkbox" name="attendance" value="Rajendar Kumar Rajak"> Rajendar Kumar Rajak</label>
+            <label><input type="checkbox" name="attendance" value="Rajesh Kumar Manik"> Rajesh Kumar Manik</label>
 
-        <label><input type="checkbox" name="attendance" value="Sunil Mishra"> Sunil Mishra</label>
-    </div>
+            <label><input type="checkbox" name="attendance" value="Sunil Mishra"> Sunil Mishra</label>
+        </div>
 
-    <label>Toolbox Meeting (PDF/JPEG):</label>
-    <input type="file" name="toolboxFile">
+        <label>Toolbox Meeting (Paste Google Drive Link):</label>
+        <input type="text" name="toolboxFile">
 
-    <label>Work Permit (PDF/JPEG):</label>
-    <input type="file" name="workPermitFile">
+        <label>Work Permit (Paste Google Drive Link):</label>
+        <input type="text" name="workPermitFile">
 
-    <br><br>
-    <button type="submit">Submit</button>
+        <button type="submit">Submit</button>
 
-</form>
+    </form>
+</div>
 
 </body>
 </html>
