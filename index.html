@@ -5,11 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Parmar Construction - Toolbox Meeting</title>
   <style>
+    /* General styles */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f8f9fc;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* Align to top for main content */
+      min-height: 100vh;
     }
+
     /* Login styles */
     #login-section {
       width: 100vw;
@@ -18,10 +24,10 @@
       align-items: center;
       justify-content: center;
       background: #f8f9fc;
-      position: fixed;
+      position: fixed; /* Fixed to cover the whole screen */
       top: 0;
       left: 0;
-      z-index: 9999;
+      z-index: 9999; /* Ensure it's on top */
     }
     .login-container {
       background: #fff;
@@ -32,6 +38,8 @@
       flex-direction: column;
       align-items: center;
       min-width: 320px;
+      max-width: 90%; /* Responsive width */
+      width: 400px; /* Max width for desktop */
     }
     .login-container img.logo-animate {
       height: 64px;
@@ -56,7 +64,7 @@
       align-self: flex-start;
     }
     .login-container input {
-      width: 100%;
+      width: calc(100% - 16px); /* Account for padding */
       padding: 8px;
       margin-top: 4px;
       border: 1px solid #ccc;
@@ -75,35 +83,48 @@
       margin-top: 10px;
       box-shadow: 0 0 8px #b3c6ff, 0 2px 4px #888;
       cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
-    /* TBM DOCX Placeholder */
-    .tbm-docx-placeholder {
-      width: 100%;
-      background: #e6ecf5;
-      color: #002366;
-      border-radius: 6px;
-      padding: 12px;
-      margin-bottom: 18px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.1em;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    .login-container button:hover {
+      background: #001a4d;
+      box-shadow: 0 0 12px #99b3ff, 0 4px 6px #666;
     }
+    #login-error {
+      color: red;
+      display: none;
+      margin-top: 10px;
+    }
+
+    /* Header Bar styles */
     .header-bar {
       background: #fff;
       padding: 10px 20px;
       display: flex;
-      align-items: flex-start;
+      flex-direction: column; /* Stack on small screens */
+      align-items: center;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      justify-content: flex-start;
-      gap: 32px;
-      position: relative;
+      position: sticky; /* Sticky header */
+      top: 0;
+      width: 100%;
+      box-sizing: border-box; /* Include padding in width */
+      z-index: 10; /* Above other content */
+    }
+    @media (min-width: 768px) { /* Desktop layout for header */
+      .header-bar {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 32px;
+      }
+      .header-title-col {
+        margin-left: 24px;
+      }
     }
     .header-title-col {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      margin-left: 24px;
+      align-items: center; /* Center on small screens */
+      margin-left: 0; /* Reset for small screens */
+      text-align: center;
     }
     .header-title-col.header-title-center {
       flex: 1;
@@ -150,6 +171,11 @@
       box-shadow: 0 0 12px #b3c6ff, 0 2px 4px #888;
       text-shadow: 0 0 8px #b3c6ff, 0 2px 4px #888;
       font-weight: bold;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .menu-button.toolbox-glow:hover {
+      background: #001a4d;
+      box-shadow: 0 0 16px #99b3ff, 0 4px 8px #666;
     }
     .dropdown-content {
       display: none;
@@ -161,6 +187,15 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       border-radius: 6px;
       z-index: 100;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .menu-dropdown:hover .dropdown-content,
+    .menu-dropdown:focus-within .dropdown-content {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
     .dropdown-content a {
       color: #002366;
@@ -169,14 +204,16 @@
       display: block;
       font-size: 1em;
       border-bottom: 1px solid #eee;
+      transition: background 0.2s ease;
     }
     .dropdown-content a:last-child {
       border-bottom: none;
     }
-    .menu-dropdown:hover .dropdown-content,
-    .menu-dropdown:focus-within .dropdown-content {
-      display: block;
+    .dropdown-content a:hover {
+      background: #f0f0f0;
     }
+
+    /* Main Container styles */
     .container {
       max-width: 800px;
       margin: 20px auto;
@@ -184,33 +221,40 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: calc(100% - 40px); /* Account for padding */
+      box-sizing: border-box;
     }
     h2 {
       text-align: center;
       color: #002366;
+      margin-bottom: 20px;
     }
     label {
       display: block;
       margin-top: 12px;
       font-weight: bold;
       color: #002366;
+      margin-bottom: 4px;
     }
     input[type="date"], select {
-      width: 100%;
+      width: calc(100% - 22px); /* Account for padding and border */
       padding: 10px;
       margin-top: 4px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      box-sizing: border-box; /* Include padding and border in width */
     }
     table {
       width: 100%;
       margin-top: 20px;
       border-collapse: collapse;
+      table-layout: fixed; /* Distribute columns evenly */
     }
     th, td {
       border: 1px solid #ccc;
       padding: 10px;
       text-align: center;
+      word-wrap: break-word; /* Prevent long names from breaking layout */
     }
     th {
       background: #e6ecf5;
@@ -222,18 +266,24 @@
       font-weight: bold;
       cursor: pointer;
       color: #fff;
+      display: inline-block; /* Allow padding and sizing */
+      min-width: 60px; /* Ensure consistent button size */
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .pps-toggle:active, .attendance-toggle:active {
+      transform: scale(0.98); /* Click feedback */
     }
     .pps-toggle[data-status="good"] {
-      background-color: #28a745;
+      background-color: #28a745; /* Green */
     }
     .pps-toggle[data-status="poor"] {
-      background-color: #dc3545;
+      background-color: #dc3545; /* Red */
     }
     .attendance-toggle[data-status="present"] {
-      background-color: #28a745;
+      background-color: #28a745; /* Green */
     }
     .attendance-toggle[data-status="absent"] {
-      background-color: #dc3545;
+      background-color: #dc3545; /* Red */
     }
     .tbm-docx-upload {
       width: 100%;
@@ -246,6 +296,7 @@
       font-weight: bold;
       font-size: 1.1em;
       box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      box-sizing: border-box;
     }
     .tbm-docx-label {
       display: block;
@@ -253,28 +304,107 @@
       font-weight: bold;
       color: #002366;
     }
+    input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      background: #fff;
+    }
     .submit-glow {
-      margin-top: 10px;
+      margin-top: 20px; /* Increased margin */
       width: 100%;
       padding: 12px;
-      font-size: 16px;
+      font-size: 1.1em; /* Slightly larger font */
       background: #002366;
       color: #fff;
       border: none;
       border-radius: 6px;
-      transition: box-shadow 0.2s, text-shadow 0.2s;
+      transition: box-shadow 0.2s, text-shadow 0.2s, background 0.3s ease;
+      cursor: pointer;
+      font-weight: bold;
+      position: relative; /* For loading spinner */
     }
     .submit-glow:hover {
       box-shadow: 0 0 16px #b3c6ff, 0 2px 8px #888;
       text-shadow: 0 0 8px #b3c6ff, 0 2px 4px #888;
       background: #001a4d;
     }
+    .submit-glow:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      box-shadow: none;
+      text-shadow: none;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #fff;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive adjustments for tables */
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      tr {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+      }
+      td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #002366;
+      }
+      td:nth-of-type(1):before { content: "Name:"; }
+      td:nth-of-type(2):before { content: "Designation:"; }
+      td:nth-of-type(3):before { content: "PPE Status:"; }
+      td:nth-of-type(4):before { content: "Attendance:"; }
+      .pps-toggle, .attendance-toggle {
+        width: auto;
+        padding: 8px 15px;
+        margin: 5px auto; /* Center toggles in mobile view */
+      }
+    }
   </style>
 </head>
 <body>
   <div id="login-section">
     <div class="login-container">
-      <img src="parmarlogo.png" alt="Logo" class="logo-animate">
+      <img src="https://placehold.co/64x64/002366/ffffff?text=LOGO" alt="Logo" class="logo-animate">
       <h2>Parmar Construction</h2>
       <form id="login-form">
         <label for="username">Username</label>
@@ -283,7 +413,7 @@
         <input type="password" id="password" required>
         <button type="submit">Login</button>
       </form>
-      <div id="login-error" style="color:red;display:none;margin-top:10px;">Invalid credentials!</div>
+      <div id="login-error">Invalid credentials!</div>
     </div>
   </div>
 
@@ -299,7 +429,7 @@
         </div>
       </div>
       <div class="header-title-col header-title-center">
-        <img src="parmarlogo.png" alt="Logo" class="logo-glow">
+        <img src="https://placehold.co/54x54/002366/ffffff?text=LOGO" alt="Logo" class="logo-glow">
         <div class="company-name-glow">Parmar Construction</div>
         <div class="vendor-info">Vendor Code - P299 TATA STEEL Jamshedpur Site</div>
       </div>
@@ -310,6 +440,7 @@
       <form id="tbm-form">
         <label for="date">Date</label>
         <input type="date" id="date" name="date" required>
+
         <label for="site">Site</label>
         <select id="site" name="site" required>
           <option value="">-- Select Site --</option>
@@ -327,18 +458,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Harish Singh Sardar</td>
-              <td>W/GC</td>
-              <td><div class="pps-toggle" data-status="good" onclick="togglePPS(this)">GOOD</div></td>
-              <td><div class="attendance-toggle" data-status="present" onclick="toggleAttendance(this)">PRESENT</div></td>
-            </tr>
-            <tr>
-              <td>Raj Kishore</td>
-              <td>W'G</td>
-              <td><div class="pps-toggle" data-status="good" onclick="togglePPS(this)">GOOD</div></td>
-              <td><div class="attendance-toggle" data-status="present" onclick="toggleAttendance(this)">PRESENT</div></td>
-            </tr>
+            <!-- Worker rows will be populated here by JavaScript -->
           </tbody>
         </table>
         <!-- TBM DOCX upload placeholder just above submit button -->
@@ -346,22 +466,32 @@
           <label for="tbm-docx" class="tbm-docx-label">Upload TBM DOCX File</label>
           <input type="file" id="tbm-docx" name="tbm-docx" accept=".doc,.docx">
         </div>
-        <button type="submit" class="submit-glow">Submit</button>
+        <button type="submit" class="submit-glow" id="submitButton">Submit</button>
       </form>
     </div>
   </div>
 
   <script>
+    // ** IMPORTANT: Replace with your deployed Google Apps Script Web App URL **
+    // This is the URL you got after deploying your Apps Script with "Anyone" access.
+    // Example: 'https://script.google.com/macros/s/AKfycbz_YOUR_DEPLOYMENT_ID/exec'
+    const GOOGLE_APPS_SCRIPT_WEB_APP_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; 
+
     // Login logic
     document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
       var user = document.getElementById('username').value.trim();
       var pass = document.getElementById('password').value;
+      var loginError = document.getElementById('login-error');
+
       if (user === 'admin' && pass === 'pc@299') {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('main-section').style.display = 'block';
+        loginError.style.display = 'none'; // Hide error on success
+        // Initialize workers for the default site after login
+        document.getElementById('site').dispatchEvent(new Event('change'));
       } else {
-        document.getElementById('login-error').style.display = 'block';
+        loginError.style.display = 'block';
       }
     });
 
@@ -396,9 +526,10 @@
     document.getElementById('site').addEventListener('change', function() {
       const site = this.value;
       const tbody = document.querySelector('.container tbody');
-      tbody.innerHTML = '';
+      tbody.innerHTML = ''; // Clear existing rows
       if (workersBySite[site]) {
         workersBySite[site].forEach(name => {
+          // Default designation is 'NA' as per your original code
           tbody.innerHTML += `
             <tr>
               <td>${name}</td>
@@ -411,7 +542,7 @@
       }
     });
 
-    // Existing TBM toggles
+    // Toggles for PPE Status
     function togglePPS(el) {
       if (el.dataset.status === 'good') {
         el.dataset.status = 'poor';
@@ -421,6 +552,8 @@
         el.textContent = 'GOOD';
       }
     }
+
+    // Toggles for Attendance Status
     function toggleAttendance(el) {
       if (el.dataset.status === 'present') {
         el.dataset.status = 'absent';
@@ -431,100 +564,117 @@
       }
     }
 
-    // Pre-fill form data (for demonstration, normally this would come from your server)
-    document.getElementById('date').value = "2025-07-17";
-    document.getElementById('site').value = "R&D SCS";
-    const initialWorkers = [
-      {
-        "name": "Arjun Gope",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      },
-      {
-        "name": "Devendra Kumar Singh",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      },
-      {
-        "name": "Ekadashi Sen",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      },
-      {
-        "name": "Jadu Mandal",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      },
-      {
-        "name": "Lallu Kumar",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      },
-      {
-        "name": "Laxmikant Choudhary",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      },
-      {
-        "name": "Niranjan Gope",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      },
-      {
-        "name": "Rahit Ghatuary",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      },
-      {
-        "name": "Rajendar Kumar Rajak",
-        "designation": "NA",
-        "ppsStatus": "GOOD",
-        "attendance": "PRESENT"
-      }
-    ];
-    const tbody = document.querySelector('.container tbody');
-    initialWorkers.forEach(worker => {
-      tbody.innerHTML += `
-        <tr>
-          <td>${worker.name}</td>
-          <td>${worker.designation}</td>
-          <td><div class="pps-toggle" data-status="${worker.ppsStatus.toLowerCase()}" onclick="togglePPS(this)">${worker.ppsStatus}</div></td>
-          <td><div class="attendance-toggle" data-status="${worker.attendance.toLowerCase()}" onclick="toggleAttendance(this)">${worker.attendance}</div></td>
-        </tr>
-      `;
+    // Pre-fill form data and trigger initial worker list load
+    document.addEventListener('DOMContentLoaded', () => {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const dd = String(today.getDate()).padStart(2, '0');
+        document.getElementById('date').value = `${yyyy}-${mm}-${dd}`;
+
+        // Set a default site and trigger change to populate initial workers
+        document.getElementById('site').value = "R&D SCS";
+        // The event listener for 'change' on 'site' will be triggered after login
+        // So, no need to trigger it here on DOMContentLoaded
     });
 
-    // Google Apps Script - doPost function simulation (for testing, remove in production)
-    function doPost(e) {
-      var ss = SpreadsheetApp.openById('YOUR_SHEET_ID'); // Replace with your Sheet ID
-      var sheet = ss.getSheetByName('Sheet1'); // Replace with your sheet name
 
-      var data = JSON.parse(e.postData.contents);
+    // Handle Form Submission for Google Apps Script
+    document.getElementById('tbm-form').addEventListener('submit', async function(e) {
+      e.preventDefault(); // Prevent default form submission
 
-      // For each worker, append a row
-      data.workers.forEach(function(worker) {
-        sheet.appendRow([
-          data.date,
-          data.site,
-          worker.name,
-          worker.designation,
-          worker.ppsStatus,
-          worker.attendance,
-          data.tbmDocxUrl || ''
-        ]);
+      const submitButton = document.getElementById('submitButton');
+      const originalButtonText = submitButton.innerHTML;
+      submitButton.disabled = true; // Disable button during submission
+      submitButton.innerHTML = 'Submitting... <span class="spinner"></span>'; // Show loading spinner
+
+      const date = document.getElementById('date').value;
+      const site = document.getElementById('site').value;
+      const tbmDocxInput = document.getElementById('tbm-docx');
+      const tbmDocxFile = tbmDocxInput.files[0]; // Get the selected file
+
+      const workers = [];
+      const workerRows = document.querySelectorAll('.container tbody tr');
+      workerRows.forEach(row => {
+        const name = row.children[0].textContent;
+        const designation = row.children[1].textContent; // Assuming designation is in the second column
+        const ppsToggle = row.children[2].querySelector('.pps-toggle');
+        const attendanceToggle = row.children[3].querySelector('.attendance-toggle');
+
+        const ppsStatus = ppsToggle ? ppsToggle.dataset.status.toUpperCase() : 'N/A';
+        const attendance = attendanceToggle ? attendanceToggle.dataset.status.toUpperCase() : 'N/A';
+
+        workers.push({
+          name: name,
+          designation: designation,
+          ppsStatus: ppsStatus,
+          attendance: attendance
+        });
       });
 
-      return ContentService.createTextOutput(JSON.stringify({result: 'success'}))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
+      // Prepare data for Google Apps Script
+      const payload = {
+        date: date,
+        site: site,
+        workers: workers,
+        tbmDocxUrl: '' // Initialize as empty. We'll handle file upload separately if needed.
+      };
+
+      // ** IMPORTANT NOTE ON FILE UPLOAD (tbm-docx): **
+      // Directly uploading files from an HTML form to Google Drive via a simple Apps Script doPost
+      // that also handles spreadsheet data is complex. It typically requires:
+      // 1. Encoding the file to Base64 on the client-side.
+      // 2. Sending the Base64 string to a *separate* Apps Script function that handles file creation
+      //    in Google Drive.
+      // 3. That Apps Script function returns the file's URL.
+      // 4. You then send the spreadsheet data (including the file URL) to your main doPost.
+      // For this solution, we are assuming you will either manually upload the DOCX and paste the URL,
+      // or implement a separate file upload mechanism. For now, the `tbmDocxUrl` field will be empty
+      // or contain a placeholder if a file was selected but not uploaded.
+      if (tbmDocxFile) {
+        alert("File upload is not directly supported in this form for Apps Script. You'll need a separate process to upload the file to Google Drive and get its URL. For now, the file will not be sent.");
+        // You could set a placeholder or a dummy URL if you still want something in the sheet:
+        // payload.tbmDocxUrl = `File selected: ${tbmDocxFile.name}`;
+      }
+
+
+      try {
+        const response = await fetch(GOOGLE_APPS_SCRIPT_WEB_APP_URL, {
+          method: 'POST',
+          mode: 'cors', // Crucial for cross-origin requests
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.result === 'success') {
+          alert('Data submitted successfully!');
+          // Optionally, clear the form or redirect
+          document.getElementById('tbm-form').reset();
+          // Re-trigger site change to reset worker list after submission
+          document.getElementById('site').dispatchEvent(new Event('change'));
+          // Reset date to current date after submission
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, '0');
+          const dd = String(today.getDate()).padStart(2, '0');
+          document.getElementById('date').value = `${yyyy}-${mm}-${dd}`;
+
+        } else {
+          alert('Error submitting data: ' + (result.message || 'Unknown error. Check console.'));
+          console.error('Apps Script Error:', result.message);
+        }
+      } catch (error) {
+        alert('Could not connect to the server. Please check your network or the Apps Script URL. Error: ' + error.message);
+        console.error('Fetch error:', error);
+      } finally {
+        submitButton.disabled = false; // Re-enable button
+        submitButton.innerHTML = originalButtonText; // Restore original text
+      }
+    });
   </script>
 </body>
 </html>
