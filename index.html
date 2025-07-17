@@ -1,121 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parmar Construction - PPE & Attendance Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f0f8ff;
-            color: #333;
-        }
-        header {
-            background-color: #007acc;
-            padding: 20px;
-            text-align: center;
-        }
-        header img {
-            height: 50px;
-        }
-        header h1 {
-            color: white;
-            margin: 10px 0 0 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 30px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-        }
-        input, select, textarea, button {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #007acc;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #005f99;
-        }
-        .attendance-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5px;
-            margin-top: 10px;
-        }
-        .attendance-grid label {
-            font-weight: normal;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parmar Construction - Toolbox Meeting</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8f9fc;
+    }
+    /* Login styles */
+    #login-section {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fc;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+    }
+    .login-container {
+      background: #fff;
+      padding: 32px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 320px;
+    }
+    .login-container img.logo-animate {
+      height: 64px;
+      margin-bottom: 18px;
+      animation: logoSwing 1.2s infinite alternate;
+      filter: drop-shadow(0 0 16px #b3c6ff) drop-shadow(0 2px 4px #888);
+    }
+    @keyframes logoSwing {
+      0% { transform: rotateY(0deg);}
+      50% { transform: rotateY(25deg);}
+      100% { transform: rotateY(-25deg);}
+    }
+    .login-container h2 {
+      color: #002366;
+      margin-bottom: 18px;
+      text-shadow: 0 0 8px #b3c6ff, 0 2px 4px #888;
+    }
+    .login-container label {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #002366;
+      align-self: flex-start;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      background: #002366;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      font-weight: bold;
+      margin-top: 10px;
+      box-shadow: 0 0 8px #b3c6ff, 0 2px 4px #888;
+      cursor: pointer;
+    }
+    /* TBM DOCX Placeholder */
+    .tbm-docx-placeholder {
+      width: 100%;
+      background: #e6ecf5;
+      color: #002366;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 18px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .header-bar {
+      background: #fff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: flex-start;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      justify-content: flex-start;
+      gap: 32px;
+      position: relative;
+    }
+    .header-title-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: 24px;
+    }
+    .header-title-col.header-title-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 0;
+    }
+    .logo-glow {
+      height: 54px;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 0 16px #b3c6ff) drop-shadow(0 2px 4px #888);
+    }
+    .company-name-glow {
+      font-size: 2em;
+      font-weight: bold;
+      color: #002366;
+      text-shadow: 0 0 12px #b3c6ff, 0 2px 4px #888;
+      margin-bottom: 2px;
+      text-align: center;
+    }
+    .vendor-info {
+      font-size: 1em;
+      color: #444;
+      font-weight: normal;
+      margin-top: 2px;
+      margin-left: 2px;
+      display: block;
+      text-align: center;
+    }
+    .menu-dropdown {
+      position: relative;
+      margin-top: 10px;
+      z-index: 2;
+    }
+    .menu-button.toolbox-glow {
+      background: #002366;
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-size: 1.1em;
+      cursor: pointer;
+      box-shadow: 0 0 12px #b3c6ff, 0 2px 4px #888;
+      text-shadow: 0 0 8px #b3c6ff, 0 2px 4px #888;
+      font-weight: bold;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 110%;
+      background: #fff;
+      min-width: 180px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-radius: 6px;
+      z-index: 100;
+    }
+    .dropdown-content a {
+      color: #002366;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 1em;
+      border-bottom: 1px solid #eee;
+    }
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+    .menu-dropdown:hover .dropdown-content,
+    .menu-dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #002366;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+      color: #002366;
+    }
+    input[type="date"], select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #e6ecf5;
+      color: #002366;
+    }
+    .pps-toggle, .attendance-toggle {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #fff;
+    }
+    .pps-toggle[data-status="good"] {
+      background-color: #28a745;
+    }
+    .pps-toggle[data-status="poor"] {
+      background-color: #dc3545;
+    }
+    .attendance-toggle[data-status="present"] {
+      background-color: #28a745;
+    }
+    .attendance-toggle[data-status="absent"] {
+      background-color: #dc3545;
+    }
+    .tbm-docx-upload {
+      width: 100%;
+      background: #e6ecf5;
+      color: #002366;
+      border-radius: 6px;
+      padding: 12px;
+      margin: 18px 0 12px 0;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.1em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .tbm-docx-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #002366;
+    }
+    .submit-glow {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #002366;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      transition: box-shadow 0.2s, text-shadow 0.2s;
+    }
+    .submit-glow:hover {
+      box-shadow: 0 0 16px #b3c6ff, 0 2px 8px #888;
+      text-shadow: 0 0 8px #b3c6ff, 0 2px 4px #888;
+      background: #001a4d;
+    }
+  </style>
 </head>
 <body>
+  <div id="login-section">
+    <div class="login-container">
+      <img src="parmarlogo.jpg" alt="Logo" class="logo-animate">
+      <h2>Parmar Construction</h2>
+      <form id="login-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+        <button type="submit">Login</button>
+      </form>
+      <div id="login-error" style="color:red;display:none;margin-top:10px;">Invalid credentials!</div>
+    </div>
+  </div>
 
-<header>
-    <img src="parmarlogo.png" alt="Company Logo">
-    <h1>Parmar Construction - PPE & Attendance Form</h1>
-    <p style="color:white;">Vendor Code: P299 | TATA Steel Jamshedpur</p>
-</header>
-
-<div class="container">
-    <form method="POST" action="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec" enctype="multipart/form-data">
-
-        <label>Select Date:</label>
-        <input type="date" name="date" required>
-
-        <label>Select site:</label>
-        <select name="site" required>
-            <option value="R&D">R&D</option>
-            <option value="SCS">SCS</option>
-            <option value="NBM">NBM</option>
-            <option value="WRM">WRM</option>
-        </select>
-
-        <label>Mark Attendance:</label>
-        <div class="attendance-grid">
-            <label><input type="checkbox" name="attendance" value="Arjun Gope"> Arjun Gope</label>
-            <label><input type="checkbox" name="attendance" value="Devendra Kumar Singh"> Devendra Kumar Singh</label>
-
-            <label><input type="checkbox" name="attendance" value="Ekadashi Sen"> Ekadashi Sen</label>
-            <label><input type="checkbox" name="attendance" value="Jadu Mandal"> Jadu Mandal</label>
-
-            <label><input type="checkbox" name="attendance" value="Lallu Kumar"> Lallu Kumar</label>
-            <label><input type="checkbox" name="attendance" value="Laxmikant Choudhary"> Laxmikant Choudhary</label>
-
-            <label><input type="checkbox" name="attendance" value="Niranjan Gope"> Niranjan Gope</label>
-            <label><input type="checkbox" name="attendance" value="Rahit Ghatoury"> Rahit Ghatoury</label>
-
-            <label><input type="checkbox" name="attendance" value="Rajendar Kumar Rajak"> Rajendar Kumar Rajak</label>
-            <label><input type="checkbox" name="attendance" value="Rajesh Kumar Manik"> Rajesh Kumar Manik</label>
-
-            <label><input type="checkbox" name="attendance" value="Sunil Mishra"> Sunil Mishra</label>
+  <div id="main-section" style="display:none;">
+    <div class="header-bar">
+      <div class="menu-dropdown">
+        <button class="menu-button toolbox-glow">☰ Menu</button>
+        <div class="dropdown-content">
+          <a href="#">Tool box meeting</a>
+          <a href="#">Housekeeping Audit</a>
+          <a href="#">Tools & tackles</a>
+          <a href="#">Site safety audit</a>
         </div>
+      </div>
+      <div class="header-title-col header-title-center">
+        <img src="parmarlogo.jpg" alt="Logo" class="logo-glow">
+        <div class="company-name-glow">Parmar Construction</div>
+        <div class="vendor-info">Vendor Code - P299 TATA STEEL Jamshedpur Site</div>
+      </div>
+    </div>
 
-        <label>Toolbox Meeting (Paste Google Drive Link):</label>
-        <input type="text" name="toolboxFile">
+    <div class="container">
+      <h2>Toolbox Meeting</h2>
+      <form id="tbm-form">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+        <label for="site">Site</label>
+        <select id="site" name="site" required>
+          <option value="">-- Select Site --</option>
+          <option value="R&D SCS">R&D SCS</option>
+          <option value="WRM">WRM</option>
+          <option value="MM">MM</option>
+        </select>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Designation</th>
+              <th>PPE Status</th>
+              <th>Attendance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Harish Singh Sardar</td>
+              <td>W/GC</td>
+              <td><div class="pps-toggle" data-status="good" onclick="togglePPS(this)">GOOD</div></td>
+              <td><div class="attendance-toggle" data-status="present" onclick="toggleAttendance(this)">PRESENT</div></td>
+            </tr>
+            <tr>
+              <td>Raj Kishore</td>
+              <td>W'G</td>
+              <td><div class="pps-toggle" data-status="good" onclick="togglePPS(this)">GOOD</div></td>
+              <td><div class="attendance-toggle" data-status="present" onclick="toggleAttendance(this)">PRESENT</div></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- TBM DOCX upload placeholder just above submit button -->
+        <div class="tbm-docx-upload">
+          <label for="tbm-docx" class="tbm-docx-label">Upload TBM DOCX File</label>
+          <input type="file" id="tbm-docx" name="tbm-docx" accept=".doc,.docx">
+        </div>
+        <button type="submit" class="submit-glow">Submit</button>
+      </form>
+    </div>
+  </div>
 
-        <label>Work Permit (Paste Google Drive Link):</label>
-        <input type="text" name="workPermitFile">
+  <script>
+    // Login logic
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var user = document.getElementById('username').value.trim();
+      var pass = document.getElementById('password').value;
+      if (user === 'admin' && pass === 'pc@299') {
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('main-section').style.display = 'block';
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    });
 
-        <button type="submit">Submit</button>
+    // Worker lists by site
+    const workersBySite = {
+      "R&D SCS": [
+        "Arjun Gope",
+        "Devendra Kumar Singh",
+        "Ekadashi Sen",
+        "Jadu Mandal",
+        "Lallu Kumar",
+        "Laxmikant Choudhary",
+        "Niranjan Gope",
+        "Rahit Ghatuary",
+        "Rajendar Kumar Rajak"
+      ],
+      "WRM": [
+        "Akash Hembrom",
+        "Anumay Mistry",
+        "Kalicharan Gorai",
+        "Kartik Namata",
+        "Sanjay Gope",
+        "Saroj Kumar Murmu"
+      ],
+      "MM": [
+        "Harish Singh Sardar",
+        "Raj Kishore"
+      ]
+    };
 
-    </form>
-</div>
+    // Update worker table on site change
+    document.getElementById('site').addEventListener('change', function() {
+      const site = this.value;
+      const tbody = document.querySelector('.container tbody');
+      tbody.innerHTML = '';
+      if (workersBySite[site]) {
+        workersBySite[site].forEach(name => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${name}</td>
+              <td>NA</td>
+              <td><div class="pps-toggle" data-status="good" onclick="togglePPS(this)">GOOD</div></td>
+              <td><div class="attendance-toggle" data-status="present" onclick="toggleAttendance(this)">PRESENT</div></td>
+            </tr>
+          `;
+        });
+      }
+    });
 
+    // Existing TBM toggles
+    function togglePPS(el) {
+      if (el.dataset.status === 'good') {
+        el.dataset.status = 'poor';
+        el.textContent = 'POOR';
+      } else {
+        el.dataset.status = 'good';
+        el.textContent = 'GOOD';
+      }
+    }
+    function toggleAttendance(el) {
+      if (el.dataset.status === 'present') {
+        el.dataset.status = 'absent';
+        el.textContent = 'ABSENT';
+      } else {
+        el.dataset.status = 'present';
+        el.textContent = 'PRESENT';
+      }
+    }
+
+    // Pre-fill form data (for demonstration, normally this would come from your server)
+    document.getElementById('date').value = "2025-07-17";
+    document.getElementById('site').value = "R&D SCS";
+    const initialWorkers = [
+      {
+        "name": "Arjun Gope",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      },
+      {
+        "name": "Devendra Kumar Singh",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      },
+      {
+        "name": "Ekadashi Sen",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      },
+      {
+        "name": "Jadu Mandal",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      },
+      {
+        "name": "Lallu Kumar",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      },
+      {
+        "name": "Laxmikant Choudhary",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      },
+      {
+        "name": "Niranjan Gope",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      },
+      {
+        "name": "Rahit Ghatuary",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      },
+      {
+        "name": "Rajendar Kumar Rajak",
+        "designation": "NA",
+        "ppsStatus": "GOOD",
+        "attendance": "PRESENT"
+      }
+    ];
+    const tbody = document.querySelector('.container tbody');
+    initialWorkers.forEach(worker => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${worker.name}</td>
+          <td>${worker.designation}</td>
+          <td><div class="pps-toggle" data-status="${worker.ppsStatus.toLowerCase()}" onclick="togglePPS(this)">${worker.ppsStatus}</div></td>
+          <td><div class="attendance-toggle" data-status="${worker.attendance.toLowerCase()}" onclick="toggleAttendance(this)">${worker.attendance}</div></td>
+        </tr>
+      `;
+    });
+
+    // Google Apps Script - doPost function simulation (for testing, remove in production)
+    function doPost(e) {
+      var ss = SpreadsheetApp.openById('YOUR_SHEET_ID'); // Replace with your Sheet ID
+      var sheet = ss.getSheetByName('Sheet1'); // Replace with your sheet name
+
+      var data = JSON.parse(e.postData.contents);
+
+      // For each worker, append a row
+      data.workers.forEach(function(worker) {
+        sheet.appendRow([
+          data.date,
+          data.site,
+          worker.name,
+          worker.designation,
+          worker.ppsStatus,
+          worker.attendance,
+          data.tbmDocxUrl || ''
+        ]);
+      });
+
+      return ContentService.createTextOutput(JSON.stringify({result: 'success'}))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+  </script>
 </body>
 </html>
